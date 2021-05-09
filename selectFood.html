@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery</title>
+	<style>
+		tr td {
+			border: 1px solid gray;
+		}
+
+		.new {
+			display: inline-block;
+		}
+
+		#totalPrice {
+			border: 1px gray solid;
+			width: 300px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<h3>Condiments(調味料類)</h3>
+	<p class="Con">
+		<button class="food">mustard</button>
+		<input  type="hidden" value="100" data-value="mustard">
+		<button class="food">salt</button>
+		<input  type="hidden" value="200" data-value="salt">
+		<button class="food">pepper</button>
+		<button class="food">spices</button>
+		<button class="food">soy sauce</button>
+		<button class="food">ketchup</button>
+	</p>
+
+
+	<h3>Deli(熟食類)</h3>
+	<p class="De">
+		<button class="food">roast beef</button>
+		<button class="food">turkey</button>
+		<button class="food">Swiss cheese</button>
+		<button class="food">potato salad</button>
+		<button class="food">potato Diane</button>
+	</p>
+
+
+
+	<h3>Coffee and Tea(咖啡茶飲類)</h3>
+	<p>
+		<button class="food">coffee</button>
+		<button class="food">herbal tea</button>
+		<button class="food">hot chocolate</button>
+		<button class="food">latte</button>
+		<button class="food">cafe au lait </button>
+		<button class="food">Con Panna</button>
+	</p>
+	<h3>Bread(麵包類)</h3>
+	<p>
+		<button class="food">white bread</button>
+		<button class="food">wheat bread</button>
+		<button class="food">whole grain bread</button>
+		<button class="food">rye bread</button>
+		<button class="food">pretzel</button>
+		<button class="food">pita bread</button>
+	</p>
+	<hr>
+	<h2>Your choices : </h2>
+	<!-- create a table -->
+	<table class="myTable">
+		<tr>
+			<td>Coffee|Tea</td>
+		</tr>
+		<tr>
+			<td>Deli</td>
+		</tr>
+		<tr class="Condiments">
+			<td>Condiments</td>
+		</tr>
+		<tr>
+			<td>Bread</td>
+		</tr>
+	</table>
+
+	<div id="totalPrice">
+		<p>總價</p><br>
+		<div class="ttPr"></div>
+	</div>
+
+
+
+
+	<script src="https://code.jquery.com/jquery-2.2.4.js" crossorigin="anonymous"></script>
+	<script>
+		var ttPr = 0;
+
+		$(function () {
+			$('.food').click(function () {
+				let item = $(this).text();
+				let price = Number($(this).next().val());
+				let productName = $(this).next().attr('data-value');
+				if ($(this).parent().attr('class') == 'Con') {
+					$('.Condiments').attr('border', 1).append(`<td>${item}</td>`).addClass('new');
+					$('#totalPrice p').append(`<br>${productName} : ${price}`);
+					$(this).attr('disabled', 'true');
+				}
+
+				if ($('.De')) {
+					$('.Deli').attr('border', 1).append(`<tr><td>${item}</td></tr>`).addClass('new');
+				}
+
+				$('.Beverage').attr('border', 1).append(`<tr><td>${item}</td></tr>`);
+				$('.Bread').attr('border', 1).append(`<tr><td>${item}</td></tr>`);
+
+				ttPr += price;
+				$('.ttPr').text(ttPr);
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>
